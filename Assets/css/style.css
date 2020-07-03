@@ -1,10 +1,10 @@
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-size: 16px;
   line-height: 1;
 }
 
-textarea{
+textarea {
   background: transparent;
   border: none;
   resize: none;
@@ -15,17 +15,17 @@ textarea{
 
 .jumbotron {
   text-align: center;
-  background-color: rgba(176, 224, 230, 0.6) ;
+  background-color: rgba(176, 224, 230, 0.6);
   color: black;
   border-radius: 0;
   border-bottom: 10px solid black;
 }
 
-.description{
+.description {
   white-space: pre-wrap;
 }
 
-.time-block{
+.time-block {
   text-align: center;
   border-radius: 15px;
 }
@@ -33,7 +33,7 @@ textarea{
 .row {
   white-space: pre-wrap;
   height: 80px;
-  border-top: 1px solid white;;
+  border-top: 1px solid white;
 }
 
 .hour {
@@ -60,39 +60,39 @@ textarea{
   border-left: 1px solid black;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
-  background-color: #06AED5;
+  background-color: #06aed5;
   color: white;
   max-width: 30%;
 }
 
 .saveBtn i:hover {
   font-size: 20px;
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 @media screen and (max-width: 768px) {
-    .container {
-        justify-content: center;
-    }
+  .container {
+    justify-content: center;
+  }
 
-    .row {
-      margin-top: 70px;
-      justify-content: center;
-    }
+  .row {
+    margin-top: 70px;
+    justify-content: center;
+  }
 
-    .hour {
-      width: 100%;
-      text-align: left;
-    }
+  .hour {
+    width: 100%;
+    text-align: left;
+  }
 
-    .description {
-        width: 100%;
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
+  .description {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
 
-    .saveBtn {
-        width: 90%;
-        max-width: none;
-    }
+  .saveBtn {
+    width: 90%;
+    max-width: none;
+  }
 }
