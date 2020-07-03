@@ -1,60 +1,68 @@
-$(document).ready(function() {
-    var currentDay = moment().format("dddd MMM Do YYYY");
-    $("#currentDay").text("Plan for today's date: " + currentDay);
+var myDay = localStorage.getItem("myDay")  ? JSON.parse(localStorage.getItem("myDay"))  : [
+      { time: "9AM", event: "" },
+      { time: "10AM", event: "" },
+      { time: "11AM", event: "" },
+      { time: "12PM", event: "" },
+      { time: "1PM", event: "" },
+      { time: "2PM", event: "" },
+      { time: "3PM", event: "" },
+      { time: "4PM", event: "" },
+      { time: "5PM", event: "" },
+      { time: "6PM", event: "" },
+      { time: "7PM", event: "" },
+      { time: "8PM", event: "" },
+      { time: "9PM", event: "" },
+      { time: "10PM", event: "" },
+      { time: "11PM", event: "" },
+      { time: "12AM", event: "" },
+    ];
+var day = moment().format("dddd MMM Do YYYY");
 
-    var currentTime = moment().format("hh");
-    console.log(currentTime);
-    var timeBlocks = $(".row.time-block");
-    console.log(timeBlocks.length);
-    function setWorkDay() {
-        for (var i = 0; i < timeBlocks.length; i++) {
-            var each = $(timeBlocks[i]);
-            var timeAttr = each.attr("time");
-            if (currentTime < timeAttr) {
-                timeBlocks.attr("class", past);
-            }
-            else if (currentTime === timeAttr) {
-                timeBlocks.attr("class", present);
-            }
-            else if (currentTime > timeAttr) {
-                timeBlocks.attr("class", future);
-            }
-    }
+var hour = moment().format("HH");
+
+//Create schedule
+for (let i = 0; i < myDay.length; i++) {
+  //Add row to schedule
+  var nextRow = $("<div>");
+  nextRow.addClass("row time-block");
+  nextRow.attr("id", myDay[i].time);
+  $("#schedule").append(nextRow);
+
+  //Add time to row
+  var newTime = $("<div>");
+  newTime.text(myDay[i].time);
+  newTime.addClass("col-xs-2 col-sm-2 col-md-2 col-lg-2 hour");
+  nextRow.append(newTime);
+
+  //Add event
+  var newEvent = $("<textarea>");
+  newEvent.val(myDay[i].event);
+  //Determine past, present, future color from current time
+  newEvent.addClass(
+    `col-xs-8 col-sm-8 col-md-8 col-lg-8 description ${
+      i + 16 < hour ? "past" : i + 16 > hour ? "future" : "present"
+    }`
+  );
+  newEvent.attr("data-name", myDay[i].time);
+  newEvent.attr("style", "overflow-wrap:break-word;");
+  nextRow.append(newEvent);
+
+  //Add save button
+  nextRow.append(`<button class="col-xs-2 col-sm-2 col-md-2 col-lg-2 btn btn-primary saveBtn" type='submit'
+    data-name=${i}><i class="fas fa-save"></i></button>`);
 }
 
-    $(".saveBtn").on("click", function(event) {
-        event.preventDefault();
-        var savedPlans = $(this).prevAll(".description").val();
-        console.log(savedPlans);
-        localStorage.setItem("event", JSON.stringify(savedPlans));
-        var getPlans = localStorage.getItem("event");
-        console.log(getPlans);
-        
+//Click button to save event
+$(".description").on("keyup", function () {
+  var inputText = this.value;
+  $(".saveBtn").on("click", function () {
+    event.preventDefault();
+    var index = $(this).attr("data-name");
+    myDay[index].event = inputText;
+    localStorage.setItem("myDay", JSON.stringify(myDay));
+  });
+});
 
-
-
-
-
-
-
-        // var savedPlans = $(this).prevAll(".description").val();
-        // console.log(savedPlans);
-        // localStorage.setItem("event", JSON.stringify(savedPlans));
-        // $(".description").text(savedPlans);
-        // var getPlans = localStorage.getItem(savedPlans)
-
-    })
-
-    setWorkDay();
-
-
-
-
-})
-      
-    // m =  moment();
-    // console.log(m.toString());
-    // console.log(m.format("dddd MMM Do YYYY"));
-    // console.log(m.format("[Plan for today's date: ]dddd MMM Do YYYY"));
-    // console.log(m.format("LL"));
-    // console.log
+//Display today's date
+var currentDate = moment().format("dddd, MMMM Do");
+$("#currentDay").text(currentDate);
